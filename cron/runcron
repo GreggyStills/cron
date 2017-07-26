@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Script to use in your crontab which runs other scripts, e.g.
-# 0 * * * *   /home/myuser/cron/runcron daily
+# 0 * * * *   /home/myuser/cron/runcron hourly
 #
 # Loads common cron environment variables you can reference in the
 # scripts that this script will run.
