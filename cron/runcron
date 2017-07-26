@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# Script to use in your crontab which runs other scripts, e.g.
+# 0 * * * *   /home/myuser/cron/runcron daily
+#
+# Loads common cron environment variables you can reference in the
+# scripts that this script will run.
+# Locates numbered files in the subdirectory you specify, and runs
+# them in the order that 'ls' sorts them.
+#
+# e.g. if crontab runs this w/ 'daily' (as above), it finds these
+# files and runs them in this order:
+# /home/myuser/cron/daily/00_runmefirst
+# /home/myuser/cron/daily/01_runmenext
+# ...and so on...
+# ...and NOT files that don't begin w/ a number:
+# /home/myuser/cron/daily/README
+#
+
+# Verify that we got an argument
+if [ $# -ne 1 ]
+  then
+    echo "Usage: $0 <cron_subdir>"
+    exit 1
+fi
+
+# Directory containing our cron files
+CRONDIR=$HOME/cron
+
+# Load environment var's for use in cron scripts
+source $CRONDIR/cron.env
+
+# subdirectory containing scripts to run (i.e. the argument we got)
+JOBDIR=$CRONDIR/$1
+if [ ! -d $JOBDIR ]; then
+  echo "Directory not found: $JOBDIR"
+  exit 1
+fi
+# list of numbered files found in the subdirectory, e.g. 00_runmefirst
+SCRIPTS=$JOBDIR/[0-9]*
+
+# Run the numbered, executable files we find
+for SCRIPT in $SCRIPTS; do
+  if [ -x $SCRIPT ]; then
+    echo "Running $SCRIPT..."
+    $SCRIPT
+  else
+    echo "ERROR: File is not chmod'ed executable: $SCRIPT"
+  fi
+done
+

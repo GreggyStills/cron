@@ -1,0 +1,8 @@
+# "" as the MAILTO address suppresses cron output->email
+MAILTO=""
+SHELL=/bin/bash
+
+# minute hour dayOfMonth month dayOfWeek   /path/to/command
+30 * * * *   /home/myuser/cron/runcron hourly
+55 23 * * *  /home/myuser/cron/runcron daily
+
