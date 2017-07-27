@@ -44,11 +44,10 @@ SCRIPTS=$JOBDIR/[0-9]*
 # Run the numbered, executable files we find
 for SCRIPT in $SCRIPTS; do
   if [ -x $SCRIPT ]; then
-    printf "----- $SCRIPT START@ $(date) -----\n"
+    echo "----- $SCRIPT START: $(date) -----\n"
     $SCRIPT
-    printf "----- $SCRIPT END@ $(date) -----\n"
+    echo "----- $SCRIPT   END: $(date) -----\n"
   else
     echo "ERROR: File is not chmod'ed executable: $SCRIPT"
   fi
 done
-
