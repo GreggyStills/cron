@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# Original location:  https://github.com/GreggyStills/cron
+#
 # Script to use in your crontab which runs other scripts, e.g.
 # 0 * * * *   /home/myuser/cron/runcron hourly
 #
