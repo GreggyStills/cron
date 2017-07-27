@@ -1,4 +1,6 @@
-# "" as the MAILTO address suppresses cron output->email
+# Original location:  https://github.com/GreggyStills/cron
+#
+# Setting MAILTO="" suppresses cron output->email
 MAILTO=""
 SHELL=/bin/bash
 
