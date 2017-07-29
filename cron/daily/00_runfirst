@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo This file is: $0
-
+echo "Filename: $0"
+echo "TESTVAR: $TESTVAR"

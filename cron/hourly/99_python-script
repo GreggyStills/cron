@@ -4,23 +4,25 @@ Test script to ensure cron can kickoff Python scripts.
 Also log the environment variables to a file (~/.log/cron.log), to
 verify the shared cron environment variables are visible to Python.
 """
+import json
 import os
+import sys
 
-HOME=os.path.expanduser('~')
-LOGDIR=os.path.join(HOME, ".log")
-LOGFILE=os.path.join(LOGDIR, 'cron.log')
 
-# make log directory
-try:
-    os.makedirs(LOGDIR)
-except OSError:
-    # suppress stupid error if directory already exists
-    pass
+def logvars():
+    """Log environment variables"""
+    logdir = os.environ.get("LOGDIR")
+    logfile = os.path.join(logdir, 'cron-env.json')
 
-# Overwrite existing logfile
-with open(LOGFILE, 'w') as f:
-    f.write("------------------\n")
-    f.write("Python view of env vars:\n")
-    for k, v in os.environ.iteritems():
-        f.write("{}: {}\n".format(k, v))
+    # Overwrite existing logfile
+    with open(logfile, 'w') as f:
+        json.dump(dict(os.environ), f, indent=2)
+        print "Wrote environment variables to: {}".format(logfile)
 
+
+filename = sys.argv[0]
+testvalue = os.environ.get("TESTVAR", "")
+print "Filename: {}".format(filename)
+print "TESTVAR: {}".format(testvalue)
+
+logvars()

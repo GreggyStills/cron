@@ -3,7 +3,7 @@
 # Original location:  https://github.com/GreggyStills/cron
 #
 # Script to use in your crontab which runs other scripts, e.g.
-# 0 * * * *   /home/myuser/cron/runcron hourly
+# 0 * * * *   /home/myuser/cron/runcron daily
 #
 # Loads common cron environment variables you can reference in the
 # scripts that this script will run.
@@ -44,9 +44,9 @@ SCRIPTS=$JOBDIR/[0-9]*
 # Run the numbered, executable files we find
 for SCRIPT in $SCRIPTS; do
   if [ -x $SCRIPT ]; then
-    echo "----- $SCRIPT START: $(date) -----\n"
+    echo "----- $SCRIPT START: $(date) -----"
     $SCRIPT
-    echo "----- $SCRIPT   END: $(date) -----\n"
+    echo "----- $SCRIPT   END: $(date) -----"
   else
     echo "ERROR: File is not chmod'ed executable: $SCRIPT"
   fi
